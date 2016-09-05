@@ -1,0 +1,43 @@
+#include <iostream>
+#include <stdio.h>
+#include <sys/time.h>
+
+using namespace std;
+
+int modulo(int, int);
+int euclides(int, int);
+
+
+int main(){
+	struct timeval ti, tf;
+	double tiempo;
+	gettimeofday(&ti, NULL);
+
+	cout<<"euclides: "<<euclides(4864, 3458)<<endl;
+
+	gettimeofday(&tf, NULL);
+	tiempo = (tf.tv_sec - ti.tv_sec)*1000 + (tf.tv_usec - ti.tv_usec)/1000.0;
+	printf(" Has tardado: %.30f segundos\n", tiempo/1000);
+	return 0;
+}
+
+
+int euclides(int x1, int x2){
+	int r; 
+	while(r != 0){
+		r = modulo(x1,x2);
+		x1=x2;
+		x2=r;
+	}
+	return r+x1;
+}
+
+
+int modulo(int x, int y){
+	int q = x/y;
+	int r = x-(y*q);
+	if(r<0)
+		return q+r;
+	else
+		return r;
+}
